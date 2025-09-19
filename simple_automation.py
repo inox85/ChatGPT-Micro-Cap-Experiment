@@ -80,7 +80,7 @@ Only recommend trades you are confident about. If no trades are recommended, use
     return prompt
 
 
-def call_openai_api(prompt: str, api_key: str, model: str = "gpt-4") -> str:
+def call_openai_api(prompt: str, api_key: str, model: str = "gpt-4o") -> str:
     """Call OpenAI API and return response"""
     if not HAS_OPENAI:
         raise ImportError("openai package not installed. Run: pip install openai")
@@ -165,7 +165,7 @@ def execute_automated_trades(trades: List[Dict[str, Any]], portfolio_df: pd.Data
     return portfolio_df, cash
 
 
-def run_automated_trading(api_key: str, model: str = "gpt-4", data_dir: str = "Start Your Own", dry_run: bool = False):
+def run_automated_trading(api_key: str, model: str = "gpt-4o", data_dir: str = "Start Your Own", dry_run: bool = False):
     """Run the automated trading process"""
     
     print("=== Automated Trading System ===")
@@ -177,7 +177,7 @@ def run_automated_trading(api_key: str, model: str = "gpt-4", data_dir: str = "S
     # Load current portfolio
     portfolio_file = data_path / "chatgpt_portfolio_update.csv"
     if portfolio_file.exists():
-        portfolio_df, cash = load_latest_portfolio_state(str(portfolio_file))
+        portfolio_df, cash = load_latest_portfolio_state()
     else:
         portfolio_df = pd.DataFrame(columns=["ticker", "shares", "stop_loss", "buy_price", "cost_basis"])
         cash = 10000.0  # Default starting cash
@@ -241,7 +241,7 @@ def main():
     """Main function"""
     parser = argparse.ArgumentParser(description="Simple Automated Trading")
     parser.add_argument("--api-key", help="OpenAI API key (or set OPENAI_API_KEY env var)")
-    parser.add_argument("--model", default="gpt-4", help="OpenAI model to use")
+    parser.add_argument("--model", default="gpt-4o", help="OpenAI model to use")
     parser.add_argument("--data-dir", default="Start Your Own", help="Data directory")
     parser.add_argument("--dry-run", action="store_true", help="Don't execute trades, just show recommendations")
     

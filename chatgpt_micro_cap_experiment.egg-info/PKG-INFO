@@ -3,3 +3,5 @@ Name: chatgpt-micro-cap-experiment
 Version: 0.1.0
 Summary: Add your description here
 Requires-Python: >=3.13
+Requires-Dist: openai>=1.108.0
+Requires-Dist: yfinance>=0.2.66
